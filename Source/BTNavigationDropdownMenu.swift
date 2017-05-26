@@ -241,6 +241,8 @@ open class BTNavigationDropdownMenu: UIView {
         }
     }
     
+
+    
     // nested classes are not accessible out of the box
     public func dropdownElementInstance()->DropDownElement{
        return DropDownElement()
@@ -264,7 +266,7 @@ open class BTNavigationDropdownMenu: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public init(navigationController: UINavigationController? = nil, containerView: UIView = UIApplication.shared.keyWindow!, title: String, items: [DropDownElement]) {
+    public init(navigationController: UINavigationController? = nil, containerView: UIView = UIApplication.shared.keyWindow!, title: String, items: [DropDownElement],height: CGFloat) {
         // Key window
         guard let window = UIApplication.shared.keyWindow else {
             super.init(frame: CGRect.zero)
@@ -282,7 +284,7 @@ open class BTNavigationDropdownMenu: UIView {
         let titleSize = (title as NSString).size(attributes: [NSFontAttributeName:self.configuration.navigationBarTitleFont])
         
         // Set frame
-        let frame = CGRect(x: 0, y: 0, width: titleSize.width + (self.configuration.arrowPadding + self.configuration.arrowImage.size.width)*2, height: self.navigationController!.navigationBar.frame.height)
+        let frame = CGRect(x: 0, y: 0, width: titleSize.width + (self.configuration.arrowPadding + self.configuration.arrowImage.size.width)*1.5, height: height)
         
         super.init(frame:frame)
         
@@ -390,6 +392,10 @@ open class BTNavigationDropdownMenu: UIView {
             self.tableView.items = items
             self.tableView.reloadData()
         }
+    }
+    
+    open func selectRow(_ row: Int) {
+       self.tableView.selectedIndexPath = row
     }
     
     func setupDefaultConfiguration() {
