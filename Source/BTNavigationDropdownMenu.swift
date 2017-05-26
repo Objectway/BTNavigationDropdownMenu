@@ -429,7 +429,7 @@ open class BTNavigationDropdownMenu: UIView {
         self.backgroundView.alpha = 0
         
         // Animation
-        self.tableView.frame.origin.y = -CGFloat(self.items.count) * self.configuration.cellHeight - 310
+        self.tableView.frame.origin.y = -CGFloat(self.items.count) * self.configuration.cellHeight - 550
         
         // Reload data to dismiss highlight color of selected cell
         self.tableView.reloadData()
@@ -440,12 +440,12 @@ open class BTNavigationDropdownMenu: UIView {
             withDuration: self.configuration.animationDuration * 1.5,
             delay: 0,
             usingSpringWithDamping: 0.7,
-            initialSpringVelocity: 0.7,
-            options: [],
+            initialSpringVelocity: 0.5,
+            options: .curveEaseOut,
             animations: {
-                self.tableView.frame.origin.y = CGFloat(-290)
+                self.tableView.frame.origin.y = CGFloat(-300)
                 self.backgroundView.alpha = self.configuration.maskBackgroundOpacity
-            }, completion: nil
+        }, completion: nil
         )
     }
     
@@ -466,7 +466,7 @@ open class BTNavigationDropdownMenu: UIView {
             options: [],
             animations: {
                 self.tableView.frame.origin.y = CGFloat(-200)
-            }, completion: nil
+        }, completion: nil
         )
         
         // Animation
@@ -475,15 +475,14 @@ open class BTNavigationDropdownMenu: UIView {
             delay: 0,
             options: UIViewAnimationOptions(),
             animations: {
-                self.tableView.frame.origin.y = -CGFloat(self.items.count) * self.configuration.cellHeight - 300
+                self.tableView.frame.origin.y = -CGFloat(self.items.count) * self.configuration.cellHeight - 580
                 self.backgroundView.alpha = 0
-            }, completion: { _ in
-                if self.isShown == false && self.tableView.frame.origin.y == -CGFloat(self.items.count) * self.configuration.cellHeight - 300 {
-                    self.menuWrapper.isHidden = true
-                }
+        }, completion: { _ in
+            if self.isShown == false && self.tableView.frame.origin.y == -CGFloat(self.items.count) * self.configuration.cellHeight - 580 {
+                self.menuWrapper.isHidden = true
+            }
         })
     }
-    
     func rotateArrow() {
         UIView.animate(withDuration: self.configuration.animationDuration, animations: {[weak self] () -> () in
             if let selfie = self {
