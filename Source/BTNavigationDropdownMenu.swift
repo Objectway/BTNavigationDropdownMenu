@@ -258,9 +258,9 @@ open class BTNavigationDropdownMenu: UIView {
     fileprivate var menuTitle: UILabel!
     fileprivate var menuArrow: UIImageView!
     fileprivate var backgroundView: UIView!
-    fileprivate var tableView: BTTableView!
+    var tableView: BTTableView!
     fileprivate var items :[DropDownElement]!
-    fileprivate var menuWrapper: UIView!
+    var menuWrapper: UIView!
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
