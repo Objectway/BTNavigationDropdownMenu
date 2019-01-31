@@ -25,7 +25,9 @@ class ViewController: UIViewController {
         nearest.text = "Nearest"
         let topPicks: DropDownElement = DropDownElement()
         topPicks.text = "Top Picks"
-        let items = [mostPop, lastest, trending, nearest, topPicks]
+        let latest: DropDownElement = DropDownElement()
+        latest.text = "Latest element"
+        let items = [mostPop, lastest, trending, nearest, topPicks, mostPop, lastest, trending, nearest, topPicks,mostPop, lastest, trending, nearest, topPicks, latest,mostPop, lastest, trending, nearest, topPicks, mostPop, lastest, trending, nearest, topPicks,mostPop, lastest, trending, nearest, topPicks, latest]
         
         self.selectedCellLabel.text = String((items.first?.text)!)
         self.navigationController?.navigationBar.isTranslucent = false
