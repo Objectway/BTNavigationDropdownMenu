@@ -680,12 +680,12 @@ class BTTableViewCell: UITableViewCell {
         if self.textLabel!.textAlignment == .center {
             self.textLabel!.frame = CGRect(x: 0, y: 0, width: cellContentFrame.width, height: cellContentFrame.height)
         } else if self.textLabel!.textAlignment == .left {
-            self.textLabel!.frame = CGRect(x: horizontalMargin, y: 0, width: cellContentFrame.width, height: configuration.cellTextLabelFont.pointSize)
+            self.textLabel!.frame = CGRect(x: horizontalMargin, y: 0, width: cellContentFrame.width  - (horizontalMargin*2), height: configuration.cellTextLabelFont.pointSize)
         } else {
             self.textLabel!.frame = CGRect(x: -horizontalMargin, y: 0, width: cellContentFrame.width, height: configuration.cellTextLabelFont.pointSize)
         }
         
-        self.detailTextLabel?.frame = CGRect(x: horizontalMargin, y: 22, width: cellContentFrame.width, height: 18)
+        self.detailTextLabel?.frame = CGRect(x: horizontalMargin, y: 22, width: cellContentFrame.width  - (horizontalMargin*2), height: 18)
         
         // Checkmark icon
         if self.textLabel!.textAlignment == .center {
