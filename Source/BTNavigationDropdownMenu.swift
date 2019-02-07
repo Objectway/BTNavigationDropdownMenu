@@ -38,7 +38,7 @@ open class BTNavigationDropdownMenu: UIView {
             self.configuration.menuTitleColor = value
         }
     }
-
+    
     // The height of the cell. Default is 50
     open var cellHeight: NSNumber! {
         get {
@@ -48,7 +48,7 @@ open class BTNavigationDropdownMenu: UIView {
             self.configuration.cellHeight = CGFloat(truncating: value)
         }
     }
-
+    
     // The color of the cell background. Default is whiteColor()
     open var cellBackgroundColor: UIColor! {
         get {
@@ -189,7 +189,7 @@ open class BTNavigationDropdownMenu: UIView {
             self.configuration.animationDuration = value
         }
     }
-
+    
     // The arrow next to navigation title
     open var arrowImage: UIImage! {
         get {
@@ -241,16 +241,16 @@ open class BTNavigationDropdownMenu: UIView {
         }
     }
     
-
+    
     
     // nested classes are not accessible out of the box
     public func dropdownElementInstance()->DropDownElement{
-       return DropDownElement()
+        return DropDownElement()
     }
     
     open var didSelectItemAtIndexHandler: ((_ indexPath: Int) -> ())?
     open var isShown: Bool!
-
+    
     fileprivate weak var navigationController: UINavigationController?
     fileprivate var configuration = BTConfiguration()
     fileprivate var topSeparator: UIView!
@@ -286,21 +286,29 @@ open class BTNavigationDropdownMenu: UIView {
         // Set frame
         let frame = CGRect(x: 0, y: 0, width: titleSize.width + (self.configuration.arrowPadding + self.configuration.arrowImage.size.width)*1.5, height: height)
         
-        super.init(frame:frame)
+        var widthTitle: CGFloat = frame.size.width
+        if widthTitle > frame.width*2/3 {
+            widthTitle = frame.width*2/3
+        }
+        
+        let frameTitle: CGRect = CGRect.init(origin: CGPoint(x: 0, y: 0), size: CGSize(width: widthTitle, height: frame.size.height))
+        super.init(frame:frameTitle)
         
         self.isShown = false
         self.items = items
         
         // Init button as navigation title
-        self.menuButton = UIButton(frame: frame)
+        self.menuButton = UIButton(frame: frameTitle)
         self.menuButton.addTarget(self, action: #selector(BTNavigationDropdownMenu.menuButtonTapped(_:)), for: UIControl.Event.touchUpInside)
         self.addSubview(self.menuButton)
-
-        self.menuTitle = UILabel(frame: frame)
+        
+        
+        
+        self.menuTitle = UILabel(frame: frameTitle)
         self.menuTitle.text = title
         self.menuTitle.textColor = self.menuTitleColor
         self.menuTitle.font = self.configuration.navigationBarTitleFont
-        self.menuTitle.textAlignment = self.configuration.cellTextLabelAlignment
+        self.menuTitle.textAlignment = .center
         self.menuButton.addSubview(self.menuTitle)
         
         self.menuArrow = UIImageView(image: self.configuration.arrowImage.withRenderingMode(.alwaysTemplate))
@@ -327,7 +335,7 @@ open class BTNavigationDropdownMenu: UIView {
         
         // Init table view
         let navBarHeight = self.navigationController?.navigationBar.bounds.size.height ?? 0
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height 
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
         self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: menuWrapperBounds.height + 210 - navBarHeight - statusBarHeight), items: items, title: title, configuration: self.configuration)
         
         self.tableView.selectRowAtIndexPathHandler = { [weak self] (indexPath: Int) -> () in
@@ -355,11 +363,10 @@ open class BTNavigationDropdownMenu: UIView {
         containerView.addSubview(self.menuWrapper)
         
         // By default, hide menu view
-        self.menuWrapper.isHidden = true        
+        self.menuWrapper.isHidden = true
     }
     
     override open func layoutSubviews() {
-        self.menuTitle.sizeToFit()
         self.menuTitle.center = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
         self.menuTitle.textColor = self.configuration.menuTitleColor
         self.menuArrow.sizeToFit()
@@ -379,7 +386,7 @@ open class BTNavigationDropdownMenu: UIView {
             self.hideMenu()
         }
     }
-
+    
     open func toggle() {
         if(self.isShown == true) {
             self.hideMenu();
@@ -489,7 +496,7 @@ open class BTNavigationDropdownMenu: UIView {
             if let selfie = self {
                 selfie.menuArrow.transform = selfie.menuArrow.transform.rotated(by: 180 * CGFloat(Double.pi/180))
             }
-            })
+        })
     }
     
     func setMenuTitle(_ title: String) {
@@ -536,7 +543,7 @@ class BTConfiguration {
         let imageBundle = Bundle(url: url!)
         let checkMarkImagePath = imageBundle?.path(forResource: "checkmark_icon", ofType: "png")
         let arrowImagePath = imageBundle?.path(forResource: "arrow_down_icon", ofType: "png")
-
+        
         // Default values
         self.menuTitleColor = UIColor.darkGray
         self.cellHeight = 50
@@ -583,7 +590,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         self.items = items
         for i in 0 ..< items.count  {
             if items[i].title as String == title{
-               self.selectedIndexPath = i
+                self.selectedIndexPath = i
             }
         }
         
@@ -645,7 +652,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         cell?.contentView.backgroundColor = self.configuration.cellBackgroundColor
         cell?.textLabel?.textColor = self.configuration.cellTextLabelColor
     }
-
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if self.configuration.shouldKeepSelectedCellColor == true {
             cell.backgroundColor = self.configuration.cellBackgroundColor
@@ -755,13 +762,13 @@ open class DropDownElement {
     
     private var _title: NSString = ""
     private var _text: NSString = ""
-   
     
-//    public convenience init(withTitle title: String, withText text: String){
-//        self.init()
-//        self.title = title as NSString
-//        self.text = text as NSString
-//    }
+    
+    //    public convenience init(withTitle title: String, withText text: String){
+    //        self.init()
+    //        self.title = title as NSString
+    //        self.text = text as NSString
+    //    }
     public var title: NSString {
         set { _title = newValue }
         get { return _title }
