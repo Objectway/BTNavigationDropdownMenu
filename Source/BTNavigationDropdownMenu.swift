@@ -286,10 +286,7 @@ open class BTNavigationDropdownMenu: UIView {
         // Set frame
         let frame = CGRect(x: 0, y: 0, width: titleSize.width + (self.configuration.arrowPadding + self.configuration.arrowImage.size.width)*1.5, height: height)
         
-        var widthTitle: CGFloat = frame.size.width
-        if widthTitle > frame.width*2/3 {
-            widthTitle = frame.width*2/3
-        }
+        let widthTitle: CGFloat = (containerView.frame.size.width*2)/3
         
         let frameTitle: CGRect = CGRect.init(origin: CGPoint(x: 0, y: 0), size: CGSize(width: widthTitle, height: frame.size.height))
         super.init(frame:frameTitle)
