@@ -281,7 +281,7 @@ open class BTNavigationDropdownMenu: UIView {
         }
         
         // Get titleSize
-        let titleSize = (title as NSString).size(withAttributes: [NSAttributedString.Key.font:self.configuration.navigationBarTitleFont])
+		let titleSize = (title as NSString).size(withAttributes: [NSAttributedString.Key.font:self.configuration.navigationBarTitleFont as Any])
         
         // Set frame
         let frame = CGRect(x: 0, y: 0, width: titleSize.width + (self.configuration.arrowPadding + self.configuration.arrowImage.size.width)*1.5, height: height)
